@@ -1,0 +1,20 @@
+image: 
+  name: microwalk/javascript:latest
+  entrypoint: [""]
+  
+stages:
+  - analyze
+
+leakage-detection:
+  stage: analyze
+  tags:
+    - microwalk
+  script:
+    - npm install
+    - cd microwalk
+    - bash analyze.sh
+  artifacts:
+    paths:
+      - microwalk/results/
+    reports:
+      codequality: [microwalk/results/report.json]
