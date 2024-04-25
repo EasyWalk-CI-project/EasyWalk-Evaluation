@@ -1,0 +1,47 @@
+# Configuration preprocessor
+constants: {}
+---
+
+general:
+  logger:
+    log-level: warning
+    file: $$$MW_RESULTS_DIRECTORY$$$/log.txt
+  monitor:
+    enable: true
+    sample-rate: 50
+    
+testcase:
+  module: load
+  module-options:
+    input-directory: $$$MW_TESTCASE_DIRECTORY$$$
+    
+trace:
+  module: passthrough
+  options:
+    input-buffer-size: 4
+    
+preprocess:
+  module: load
+  module-options:
+    input-directory: $$$MW_TRACE_DIRECTORY$$$
+  options:
+    input-buffer-size: 4
+    max-parallel-threads: 4
+  
+analysis:
+  modules:
+    - module: control-flow-leakage
+      module-options:
+        output-directory: $$$MW_RESULTS_DIRECTORY$$$
+        map-directory: $$$MW_MAPS_DIRECTORY$$$
+        dump-call-tree: false
+        include-testcases-in-call-stacks: false
+#    - module: dump
+#      module-options:
+#        output-directory: $$$MW_TRACE_DIRECTORY$$$
+#        map-directory: $$$MW_MAPS_DIRECTORY$$$
+#        include-prefix: true
+        
+  options:
+    input-buffer-size: 3
+    max-parallel-threads: 1

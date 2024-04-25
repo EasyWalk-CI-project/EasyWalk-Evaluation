@@ -1,0 +1,39 @@
+stages:
+  - analyze
+
+leakage-detection-old:
+  image:
+    name: ghcr.io/microwalk-project/microwalk:3.2.0-jalangi2
+    entrypoint: [""]
+  stage: analyze
+  tags:
+    - microwalk
+  script:
+    - npm install
+    - cd Microwalk_OLD/microwalk
+    - bash analyze.sh
+  artifacts:
+    paths:
+      - Microwalk_OLD/microwalk/results/
+    reports:
+      codequality: [Microwalk_OLD/microwalk/results/report.json]
+
+leakage-detection-new:
+  image:
+    name: microwalk/javascript:latest
+    entrypoint: [""]
+  stage: analyze
+  tags:
+    - microwalk
+  script:
+    - npm install
+    - cd microwalk
+    - bash analyze.sh
+  artifacts:
+    paths:
+      - microwalk/results/
+      #- microwalk/maps/
+      #- microwalk/traces/
+      - microwalk/coverage/
+    reports:
+      codequality: [microwalk/results/report.json]

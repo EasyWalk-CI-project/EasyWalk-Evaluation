@@ -1,0 +1,6 @@
+*.mw.mjs*
+*.mw.cjs*
+*.mw.js*
+microwalk/traces
+microwalk/testcases
+node_modules
